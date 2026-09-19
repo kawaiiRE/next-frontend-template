@@ -10,9 +10,16 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   return (
     <div className={styles.shell}>
+      <a className={styles.shell__skipLink} href="#main-content">
+        Skip to content
+      </a>
       <AppHeader />
-      <main className={styles.shell__main}>{children}</main>
-      <AppFooter />
+      <div className={styles.shell__content}>
+        <main className={styles.shell__main} id="main-content">
+          {children}
+        </main>
+        <AppFooter />
+      </div>
     </div>
   );
 }

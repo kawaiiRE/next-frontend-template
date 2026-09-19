@@ -8,6 +8,8 @@ RUN yarn install --immutable
 FROM dependencies AS build
 
 WORKDIR /app
+ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 COPY . .
 RUN yarn lint && yarn typecheck && yarn test:run && yarn build
 

@@ -1,16 +1,53 @@
 .shell {
   box-sizing: border-box;
+  min-block-size: 100vh;
+  background:
+    radial-gradient(circle at 88% 6%, var(--color-glow), transparent 22rem), var(--color-background);
+}
+
+.shell__skipLink {
+  position: fixed;
+  z-index: 100;
+  inset-block-start: var(--space-sm);
+  inset-inline-start: var(--space-sm);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  font-weight: 750;
+  text-decoration: none;
+  transform: translateY(-150%);
+}
+
+.shell__skipLink:focus {
+  transform: translateY(0);
+}
+
+.shell__content {
   display: flex;
   min-block-size: 100vh;
+  margin-inline-start: var(--sidebar-width);
   flex-direction: column;
+  padding-block-start: var(--topbar-height);
 }
 
 .shell__main {
   box-sizing: border-box;
   display: flex;
-  width: min(100% - 2rem, var(--content-width));
+  width: min(100% - 3rem, var(--content-width));
   margin-inline: auto;
   flex: 1;
   flex-direction: column;
-  padding-block: var(--space-xl);
+  padding-block: 2rem 4.5rem;
+}
+
+@media (max-width: 62rem) {
+  .shell__content {
+    margin-inline-start: 0;
+  }
+
+  .shell__main {
+    width: min(100% - 2rem, var(--content-width));
+    padding-block: var(--space-lg) 3.5rem;
+  }
 }
