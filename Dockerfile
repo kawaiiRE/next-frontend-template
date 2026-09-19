@@ -2,7 +2,7 @@ FROM node:24-alpine AS dependencies
 
 WORKDIR /app
 RUN corepack enable
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn install --immutable
 
 FROM dependencies AS build
