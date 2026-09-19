@@ -1,0 +1,35 @@
+.header {
+  box-sizing: border-box;
+  border-block-end: 0.0625rem solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.header__inner {
+  box-sizing: border-box;
+  display: flex;
+  width: min(100% - 2rem, var(--content-width));
+  min-block-size: 4.5rem;
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.header__brand,
+.header__link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.header__brand {
+  font-weight: 750;
+}
+
+.header__link {
+  color: var(--color-text-muted);
+}
+
+.header__brand:hover,
+.header__link:hover {
+  color: var(--color-primary);
+}

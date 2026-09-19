@@ -1,0 +1,28 @@
+.error {
+  box-sizing: border-box;
+  max-width: 38rem;
+  margin: auto;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.error__title {
+  margin: 0;
+}
+
+.error__description {
+  margin: var(--space-sm) 0 0;
+  color: var(--color-text-muted);
+}
+
+.error__button {
+  margin-block-start: var(--space-lg);
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}

@@ -1,0 +1,42 @@
+{
+  "name": "next-pocketbase-frontend-template",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "yarn@4.18.0",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "integration:check": "node --env-file-if-exists=.env.local scripts/check-integration.ts",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "check": "yarn format && yarn lint && yarn typecheck && yarn test:run && yarn build"
+  },
+  "dependencies": {
+    "next": "16.3.5",
+    "pocketbase": "0.28.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "16.3.5",
+    "prettier": "^3.8.1",
+    "sass": "^1.98.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

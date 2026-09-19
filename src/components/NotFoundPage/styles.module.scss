@@ -1,0 +1,27 @@
+.notFound {
+  box-sizing: border-box;
+  max-width: 38rem;
+  margin: auto;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.notFound__title {
+  margin: 0;
+}
+
+.notFound__description {
+  margin: var(--space-sm) 0 0;
+  color: var(--color-text-muted);
+}
+
+.notFound__link {
+  display: inline-block;
+  margin-block-start: var(--space-lg);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+}

@@ -1,0 +1,16 @@
+.shell {
+  box-sizing: border-box;
+  display: flex;
+  min-block-size: 100vh;
+  flex-direction: column;
+}
+
+.shell__main {
+  box-sizing: border-box;
+  display: flex;
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+  flex: 1;
+  flex-direction: column;
+  padding-block: var(--space-xl);
+}
