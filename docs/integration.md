@@ -7,7 +7,7 @@ The frontend and backend remain separate codebases and communicate only over HTT
 Start the backend in one terminal:
 
 ```powershell
-cd D:\Me\PROJECTS\pocketbase-next-backend-template
+cd D:\Me\PROJECTS\pocketbase-backend-template
 corepack yarn install --immutable
 corepack yarn setup
 $env:PB_ENCRYPTION_KEY = '<32-character-local-key>'
@@ -17,7 +17,7 @@ corepack yarn dev
 Prepare and start the frontend in a second terminal:
 
 ```powershell
-cd D:\Me\PROJECTS\next-pocketbase-frontend-template
+cd D:\Me\PROJECTS\next-frontend-template
 corepack yarn install --immutable
 Copy-Item .env.example .env.local
 corepack yarn dev
@@ -26,7 +26,7 @@ corepack yarn dev
 With both processes running, verify the complete connection in a third terminal:
 
 ```powershell
-cd D:\Me\PROJECTS\next-pocketbase-frontend-template
+cd D:\Me\PROJECTS\next-frontend-template
 corepack yarn integration:check
 ```
 

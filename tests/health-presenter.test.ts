@@ -7,13 +7,13 @@ describe('presentHealth', () => {
       presentHealth({
         status: 'ok',
         apiVersion: 1,
-        service: 'pocketbase-next-backend-template',
+        service: 'pocketbase-backend-template',
         time: '2026-09-19T12:00:00.000Z',
       }),
     ).toEqual({
       available: true,
       apiVersion: 1,
-      service: 'pocketbase-next-backend-template',
+      service: 'pocketbase-backend-template',
       checkedAt: '2026-09-19T12:00:00.000Z',
     });
   });

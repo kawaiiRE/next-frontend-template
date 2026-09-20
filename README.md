@@ -1,8 +1,8 @@
-# Next.js + PocketBase frontend template
+# Next.js frontend template
 
-[![CI](https://github.com/kawaiiRE/next-pocketbase-frontend-template/actions/workflows/ci.yml/badge.svg)](https://github.com/kawaiiRE/next-pocketbase-frontend-template/actions/workflows/ci.yml)
+[![CI](https://github.com/kawaiiRE/next-frontend-template/actions/workflows/ci.yml/badge.svg)](https://github.com/kawaiiRE/next-frontend-template/actions/workflows/ci.yml)
 
-[Live demo](https://next-template.rachida.dev) | [PocketBase backend template](https://github.com/kawaiiRE/pocketbase-next-backend-template)
+[Live demo](https://next-template.rachida.dev) | [PocketBase backend template](https://github.com/kawaiiRE/pocketbase-backend-template)
 
 A production-minded Next.js 16 / React 19 / TypeScript frontend that is deliberately independent from its backend. It keeps the useful discipline of the Nuxt starter—central routes and styling, typed services, presenters, focused components, tests, and safe deployment—without carrying Vue, Nuxt, Pinia, Vuestic, or Fastify conventions into React.
 
@@ -13,11 +13,11 @@ A production-minded Next.js 16 / React 19 / TypeScript frontend that is delibera
 3. Run `corepack yarn install --immutable`, copy `.env.example` to `.env.local`, then run `corepack yarn dev`.
 4. Replace the health example one domain slice at a time. Keep route, contract, repository, service, presenter, component, and test changes synchronized.
 
-The frontend expects the versioned PocketBase health route at `/api/v1/health` on `POCKETBASE_URL`. The separate `pocketbase-next-backend-template` implements it, but this repository has no filesystem dependency on that backend.
+The frontend expects the versioned PocketBase health route at `/api/v1/health` on `POCKETBASE_URL`. The separate `pocketbase-backend-template` implements it, but this repository has no filesystem dependency on that backend.
 
 ## Run with the PocketBase template
 
-Start `pocketbase-next-backend-template` first, then start this frontend with `POCKETBASE_URL` pointing to it. Once both are running, execute `corepack yarn integration:check` here. The check calls PocketBase directly and then calls the Next.js `/api/health` bridge, validating that both services expose the same API version and service identity. See `docs/integration.md` for the complete workflow.
+Start `pocketbase-backend-template` first, then start this frontend with `POCKETBASE_URL` pointing to it. Once both are running, execute `corepack yarn integration:check` here. The check calls PocketBase directly and then calls the Next.js `/api/health` bridge, validating that both services expose the same API version and service identity. See `docs/integration.md` for the complete workflow.
 
 ## Commands
 
