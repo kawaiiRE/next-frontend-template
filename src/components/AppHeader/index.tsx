@@ -59,7 +59,7 @@ export function AppHeader() {
         <div className={styles.sidebar__brandRow}>
           <Link className={styles.sidebar__brand} href={APP_ROUTES.home} onClick={closeNavigation}>
             <span className={styles.sidebar__brandMark} aria-hidden="true">
-              L
+              N
             </span>
             <span>
               <strong>{COPY.brand}</strong>
@@ -139,7 +139,7 @@ export function AppHeader() {
         <div className={styles.topbar__end}>
           <span className={styles.topbar__badge}>Production foundation</span>
           <span className={styles.topbar__avatar} aria-hidden="true">
-            LF
+            NT
           </span>
         </div>
       </header>
