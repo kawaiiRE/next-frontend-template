@@ -10,6 +10,12 @@ export const COPY = {
     open: 'Open navigation',
     close: 'Close navigation',
     status: 'Template online',
+    sidebarLabel: 'Site sidebar',
+    sectionLabel: 'Workspace',
+    currentPage: 'Overview',
+    foundationBadge: 'Production foundation',
+    stackTitle: 'Full-stack ready',
+    stackDescription: 'Two clean codebases connected by one contract.',
   },
   home: {
     eyebrow: 'Next.js 16 + PocketBase',
@@ -104,6 +110,7 @@ export const COPY = {
     retry: 'Try again',
     endpointLabel: 'Same-origin endpoint',
     endpoint: '/api/health',
+    verifiedResponse: 'Verified response',
   },
   loading: 'Loading…',
   error: {

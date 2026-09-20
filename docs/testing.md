@@ -1,6 +1,6 @@
 # Testing
 
-Unit tests cover presenters, validation, state transitions, and non-trivial domain utilities. Route and service tests cover success, malformed data, authorization failures, upstream failures, and safe error mapping. Add browser acceptance tests when the application has real user flows.
+Unit tests cover presenters and the browser API boundary, including successful responses, malformed contracts, transport failures, and safe error mapping. Extend that coverage with domain validation and route tests as real mutations are added. Add browser acceptance tests when the application has real user flows.
 
 Run `corepack yarn check` before handoff. A production build must not require a live backend; database-backed pages should render dynamically or handle unavailable data intentionally.
 

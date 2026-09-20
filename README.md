@@ -1,5 +1,9 @@
 # Next.js + PocketBase frontend template
 
+[![CI](https://github.com/kawaiiRE/next-pocketbase-frontend-template/actions/workflows/ci.yml/badge.svg)](https://github.com/kawaiiRE/next-pocketbase-frontend-template/actions/workflows/ci.yml)
+
+[Live demo](https://next-template.rachida.dev) | [PocketBase backend template](https://github.com/kawaiiRE/pocketbase-next-backend-template)
+
 A production-minded Next.js 16 / React 19 / TypeScript frontend that is deliberately independent from its backend. It keeps the useful discipline of the Nuxt starter—central routes and styling, typed services, presenters, focused components, tests, and safe deployment—without carrying Vue, Nuxt, Pinia, Vuestic, or Fastify conventions into React.
 
 ## Start a project
@@ -27,3 +31,7 @@ Start `pocketbase-next-backend-template` first, then start this frontend with `P
 No global store is installed because the starter does not need one. If a real feature requires shared mutable browser state, add MobX and `mobx-react-lite`, keep stores domain-based, and create each store inside a client provider.
 
 Read `docs/architecture.md`, `docs/security.md`, `docs/testing.md`, and `docs/deployment.md` before changing boundaries or deployment behavior.
+
+## Contributing and security
+
+Contributions are welcome; see `CONTRIBUTING.md`. Report security issues privately by following `SECURITY.md` rather than opening a public issue.

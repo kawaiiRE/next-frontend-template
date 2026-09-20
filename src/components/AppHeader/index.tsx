@@ -54,7 +54,7 @@ export function AppHeader() {
       <aside
         className={isOpen ? styles.sidebarOpen : styles.sidebar}
         id="primary-sidebar"
-        aria-label="Site sidebar"
+        aria-label={COPY.navigation.sidebarLabel}
       >
         <div className={styles.sidebar__brandRow}>
           <Link className={styles.sidebar__brand} href={APP_ROUTES.home} onClick={closeNavigation}>
@@ -76,7 +76,7 @@ export function AppHeader() {
           </button>
         </div>
 
-        <p className={styles.sidebar__sectionLabel}>Workspace</p>
+        <p className={styles.sidebar__sectionLabel}>{COPY.navigation.sectionLabel}</p>
         <nav className={styles.sidebar__navigation} aria-label={COPY.navigation.primaryLabel}>
           {navigationItems.map((item, index) => (
             <Link
@@ -98,8 +98,8 @@ export function AppHeader() {
             NP
           </span>
           <div>
-            <strong>Full-stack ready</strong>
-            <p>Two clean codebases connected by one contract.</p>
+            <strong>{COPY.navigation.stackTitle}</strong>
+            <p>{COPY.navigation.stackDescription}</p>
           </div>
         </div>
 
@@ -132,12 +132,12 @@ export function AppHeader() {
             <span />
           </button>
           <div>
-            <p className={styles.topbar__eyebrow}>Workspace</p>
-            <p className={styles.topbar__title}>Overview</p>
+            <p className={styles.topbar__eyebrow}>{COPY.navigation.sectionLabel}</p>
+            <p className={styles.topbar__title}>{COPY.navigation.currentPage}</p>
           </div>
         </div>
         <div className={styles.topbar__end}>
-          <span className={styles.topbar__badge}>Production foundation</span>
+          <span className={styles.topbar__badge}>{COPY.navigation.foundationBadge}</span>
           <span className={styles.topbar__avatar} aria-hidden="true">
             NT
           </span>

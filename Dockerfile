@@ -11,7 +11,7 @@ WORKDIR /app
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 COPY . .
-RUN yarn lint && yarn typecheck && yarn test:run && yarn build
+RUN mkdir -p public && yarn lint && yarn typecheck && yarn test:run && yarn build
 
 FROM node:24-alpine AS runtime
 

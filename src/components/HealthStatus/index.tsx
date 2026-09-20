@@ -38,7 +38,7 @@ export function HealthStatus() {
         </div>
         {isAvailable ? (
           <div>
-            <span>Verified response</span>
+            <span>{COPY.health.verifiedResponse}</span>
             <p className={styles.health__metadata}>
               {state.data.service} · API v{state.data.apiVersion} · {state.data.checkedAt}
             </p>

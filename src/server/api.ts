@@ -8,7 +8,8 @@ const MAX_JSON_BODY_BYTES = 65_536;
 export class ApiFailure extends Error {
   constructor(
     public readonly status: number,
-    public readonly code: 'BODY_TOO_LARGE' | 'FORBIDDEN_ORIGIN' | 'INVALID_INPUT',
+    public readonly code:
+      'BODY_TOO_LARGE' | 'FORBIDDEN_ORIGIN' | 'INVALID_INPUT' | 'UNSUPPORTED_MEDIA_TYPE',
   ) {
     super(code);
   }
@@ -21,6 +22,7 @@ interface SafeApiError {
     | 'FORBIDDEN_ORIGIN'
     | 'INVALID_INPUT'
     | 'INVALID_RESPONSE'
+    | 'UNSUPPORTED_MEDIA_TYPE'
     | 'UPSTREAM_UNAVAILABLE'
     | 'UNAVAILABLE';
 }
@@ -33,6 +35,14 @@ export async function readMutationJson(request: Request): Promise<unknown> {
   const declaredLength = Number(request.headers.get('content-length') ?? 0);
   if (declaredLength > MAX_JSON_BODY_BYTES) {
     throw new ApiFailure(413, 'BODY_TOO_LARGE');
+  }
+
+  const mediaType = request.headers.get('content-type')?.split(';', 1)[0]?.trim().toLowerCase();
+  const isJson =
+    mediaType === 'application/json' ||
+    (mediaType?.startsWith('application/') === true && mediaType.endsWith('+json'));
+  if (!isJson) {
+    throw new ApiFailure(415, 'UNSUPPORTED_MEDIA_TYPE');
   }
 
   const reader = request.body?.getReader();

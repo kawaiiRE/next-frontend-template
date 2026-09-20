@@ -2430,7 +2430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.39.0":
+"eslint@npm:9.39.5":
   version: 9.39.5
   resolution: "eslint@npm:9.39.5"
   dependencies:
@@ -3617,7 +3617,7 @@ __metadata:
     "@types/node": "npm:^24.0.0"
     "@types/react": "npm:^19.0.0"
     "@types/react-dom": "npm:^19.0.0"
-    eslint: "npm:^9.39.0"
+    eslint: "npm:9.39.5"
     eslint-config-next: "npm:16.3.5"
     next: "npm:16.3.5"
     pocketbase: "npm:0.28.1"
