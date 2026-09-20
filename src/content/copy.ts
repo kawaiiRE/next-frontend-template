@@ -1,5 +1,5 @@
 export const COPY = {
-  brand: 'Launchframe',
+  brand: 'Next Template',
   brandLabel: 'Next.js starter',
   navigation: {
     overview: 'Overview',
