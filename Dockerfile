@@ -10,6 +10,8 @@ FROM dependencies AS build
 WORKDIR /app
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_INDEXABLE=false
+ENV NEXT_PUBLIC_INDEXABLE=$NEXT_PUBLIC_INDEXABLE
 COPY . .
 RUN mkdir -p public && yarn lint && yarn typecheck && yarn test:run && yarn build
 

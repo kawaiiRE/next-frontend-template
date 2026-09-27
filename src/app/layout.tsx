@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
+  robots: SITE_CONFIG.indexable ? undefined : { index: false, follow: false },
 };
 
 interface RootLayoutProps {
