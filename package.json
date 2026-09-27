@@ -22,7 +22,7 @@
     "check": "yarn format && yarn lint && yarn typecheck && yarn test:run && yarn build"
   },
   "dependencies": {
-    "next": "16.3.5",
+    "next": "16.3.6",
     "pocketbase": "0.28.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
