@@ -16,6 +16,7 @@ assert.equal(head.status, 0);
 assert.equal(head.stdout.trim(), process.env.PR_HEAD_SHA);
 const executable = path.resolve(process.env.MAIL_TEST_PB ?? 'backend/bin/pocketbase');
 const frontend = process.env.MAIL_TEST_FRONTEND === 'root' ? root : path.join(root, 'frontend');
+const collectionName = process.env.MAIL_TEST_FRONTEND === 'root' ? 'users' : 'owners';
 const folder = await mkdtemp(path.join(os.tmpdir(), 'mail-confirmation-'));
 const backendUrl = 'http://127.0.0.1:18090';
 const origin = 'http://127.0.0.1:18091';
@@ -64,7 +65,7 @@ async function captured(expected) {
       assert.equal(url.origin, origin);
       const values = new URLSearchParams(url.hash.slice(1));
       if (values.get('action') !== expected) continue;
-      assert.equal(values.get('collection'), 'users');
+      assert.equal(values.get('collection'), collectionName);
       assert(values.get('token'));
       return { url: url.href, action: values.get('action'), token: values.get('token') };
     }
@@ -137,10 +138,10 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   await admin.collection('_superusers').authWithPassword(adminEmail, adminPassword);
   let collection;
   try {
-    collection = await admin.collections.getOne('users');
+    collection = await admin.collections.getOne(collectionName);
   } catch {
     collection = await admin.collections.create({
-      name: 'users',
+      name: collectionName,
       type: 'auth',
       authRule: '',
       passwordAuth: { enabled: true, identityFields: ['email'] },
@@ -157,7 +158,9 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
       body:
         '<a href="{APP_URL}/mail-actions#action=' +
         type +
-        '&amp;collection=users&amp;token={TOKEN}">Continue</a>',
+        '&amp;collection=' +
+        collectionName +
+        '&amp;token={TOKEN}">Continue</a>',
     };
   }
   await admin.collections.update(collection.id, {
@@ -175,14 +178,14 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   });
   const email = 'listener@mail-actions.invalid';
   const originalPassword = randomBytes(18).toString('base64url');
-  const record = await admin.collection('users').create({
+  const record = await admin.collection(collectionName).create({
     email,
     verified: false,
     password: originalPassword,
     passwordConfirm: originalPassword,
   });
   const existingSession = new PocketBase(backendUrl);
-  await existingSession.collection('users').authWithPassword(email, originalPassword);
+  await existingSession.collection(collectionName).authWithPassword(email, originalPassword);
   const beforeTemplates = await admin.collections.getOne(collection.id);
   await admin.collections.update(collection.id, templates);
   const afterTemplates = await admin.collections.getOne(collection.id);
@@ -205,7 +208,7 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     'mfa',
   ])
     assert.deepEqual(afterTemplates[field], beforeTemplates[field]);
-  await existingSession.collection('users').authRefresh();
+  await existingSession.collection(collectionName).authRefresh();
   const publicClient = new PocketBase(backendUrl);
   stage = 'frontend readiness';
   const server = start(
@@ -230,10 +233,10 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   await ready(origin + '/mail-actions', server);
   assert.equal((await fetch(origin + '/_/')).status, 404);
   stage = 'verification';
-  await publicClient.collection('users').requestVerification(email);
+  await publicClient.collection(collectionName).requestVerification(email);
   const verification = await captured('verification');
   assert.equal(verification.action, 'verification');
-  assert.equal((await admin.collection('users').getOne(record.id)).verified, false);
+  assert.equal((await admin.collection(collectionName).getOne(record.id)).verified, false);
   if (process.env.MAIL_TEST_BROWSER === 'true') {
     const { chromium } = await import('@playwright/test');
     browser = await chromium.launch({ headless: true });
@@ -256,7 +259,7 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
       .analyze();
     assert.equal(accessibility.violations.length, 0);
     assert.equal(new URL(page.url()).hash, '');
-    assert.equal((await admin.collection('users').getOne(record.id)).verified, false);
+    assert.equal((await admin.collection(collectionName).getOne(record.id)).verified, false);
     await page.getByRole('button', { name: 'Confirm', exact: true }).click();
     stage = 'browser completion';
     await page.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
@@ -275,19 +278,24 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     await page.screenshot({ path: '.runtime/mail-confirmation-fr.png' });
   } else
     assert.equal(
-      (await action({ action: 'verification', collection: 'users', token: verification.token }))
-        .status,
+      (
+        await action({
+          action: 'verification',
+          collection: collectionName,
+          token: verification.token,
+        })
+      ).status,
       200,
     );
-  assert.equal((await admin.collection('users').getOne(record.id)).verified, true);
+  assert.equal((await admin.collection(collectionName).getOne(record.id)).verified, true);
   stage = 'password reset';
-  await publicClient.collection('users').requestPasswordReset(email);
+  await publicClient.collection(collectionName).requestPasswordReset(email);
   const reset = await captured('password-reset');
   assert.equal(reset.action, 'password-reset');
   const password = randomBytes(18).toString('base64url');
   const resetInput = {
     action: 'password-reset',
-    collection: 'users',
+    collection: collectionName,
     token: reset.token,
     password,
     passwordConfirm: password,
@@ -301,15 +309,15 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     await browserPage.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
   } else assert.equal((await action(resetInput)).status, 200);
   assert.equal((await action(resetInput)).status, 400);
-  await assert.rejects(() => existingSession.collection('users').authRefresh());
+  await assert.rejects(() => existingSession.collection(collectionName).authRefresh());
   const signedIn = new PocketBase(backendUrl);
-  await signedIn.collection('users').authWithPassword(email, password);
+  await signedIn.collection(collectionName).authWithPassword(email, password);
   await assert.rejects(() =>
-    new PocketBase(backendUrl).collection('users').authWithPassword(email, originalPassword),
+    new PocketBase(backendUrl).collection(collectionName).authWithPassword(email, originalPassword),
   );
   stage = 'email change';
   const newEmail = 'confirmed-listener@mail-actions.invalid';
-  await signedIn.collection('users').requestEmailChange(newEmail);
+  await signedIn.collection(collectionName).requestEmailChange(newEmail);
   const change = await captured('email-change');
   assert.equal(change.action, 'email-change');
   if (browserPage) {
@@ -320,11 +328,17 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     await browserPage.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
   } else
     assert.equal(
-      (await action({ action: 'email-change', collection: 'users', token: change.token, password }))
-        .status,
+      (
+        await action({
+          action: 'email-change',
+          collection: collectionName,
+          token: change.token,
+          password,
+        })
+      ).status,
       200,
     );
-  assert.equal((await admin.collection('users').getOne(record.id)).email, newEmail);
+  assert.equal((await admin.collection(collectionName).getOne(record.id)).email, newEmail);
   stage = 'cross-origin rejection';
   const rejected = await fetch(origin + '/api/v1/mail-actions', {
     method: 'POST',
