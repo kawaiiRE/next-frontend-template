@@ -1,0 +1,63 @@
+name: Mail confirmation checks
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mail-confirmation-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  mail-confirmation:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'fix/mail-confirmation-pages-20261105'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+      PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Check out the exact review source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Enable Corepack and install locked dependencies
+        run: |
+          corepack enable
+          yarn install --immutable
+      - name: Run the application quality gates
+        run: yarn check
+      - name: Download and verify the isolated PocketBase fixture
+        env:
+          PB_ARCHIVE: ${{ runner.temp }}/pocketbase.zip
+        run: |
+          curl --fail --silent --show-error --location https://github.com/pocketbase/pocketbase/releases/download/v0.40.4/pocketbase_0.40.4_linux_amd64.zip --output "$PB_ARCHIVE"
+          echo "9042ec818570e79c3628dadcd0a756c1496d9e1173918ec409d133c02f82e5fa  $PB_ARCHIVE" | sha256sum --check
+          unzip "$PB_ARCHIVE" -d "${{ runner.temp }}/mail-pocketbase"
+      - name: Test native mail confirmations in a disposable fixture
+        env:
+          MAIL_TEST_PB: ${{ runner.temp }}/mail-pocketbase/pocketbase
+          MAIL_TEST_FRONTEND: root
+        run: node scripts/mail-confirmation-acceptance.mjs
+      - name: Retain only sanitized confirmation evidence
+        if: always() && hashFiles('.runtime/mail-confirmation-*.png', '.runtime/mail-confirmation-result.json') != ''
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: mail-confirmation-${{ github.event.pull_request.head.sha }}
+          path: |
+            .runtime/mail-confirmation-*.png
+            .runtime/mail-confirmation-result.json
+          if-no-files-found: error
+          retention-days: 3
+          include-hidden-files: true
