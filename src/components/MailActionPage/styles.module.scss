@@ -35,7 +35,7 @@
     inline-size: 100%;
     color: inherit;
     background: inherit;
-    border: 0.0625rem solid var(--control-border, var(--color-border));
+    border: 0.0625rem solid var(--control-border, var(--color-text-muted));
   }
   button {
     color: var(--accent-ink, var(--color-on-primary));
@@ -53,6 +53,7 @@
   }
   a {
     color: inherit;
+    text-decoration: underline;
     text-underline-offset: 0.2rem;
   }
 }

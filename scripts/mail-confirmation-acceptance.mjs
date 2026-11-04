@@ -23,6 +23,8 @@ const children = [];
 const log = await open(path.join(folder, 'fixture.log'), 'w', 0o600);
 let stage = 'initialize';
 let browser;
+let browserPage;
+let browserActionStatus;
 function start(binary, args, cwd, extra = {}) {
   const child = spawn(binary, args, {
     cwd,
@@ -236,19 +238,40 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     const { chromium } = await import('@playwright/test');
     browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
+    browserPage = page;
+    page.on('response', (response) => {
+      if (new URL(response.url()).pathname === '/api/v1/mail-actions')
+        browserActionStatus = response.status();
+    });
+    stage = 'browser page';
     await page.goto(verification.url);
+    await mkdir('.runtime', { recursive: true });
+    await page.screenshot({ path: '.runtime/mail-confirmation-start.png' });
+    stage = 'browser confirmation button';
     await page.getByRole('button', { name: 'Confirm', exact: true }).waitFor();
+    const { default: AxeBuilder } = await import('@axe-core/playwright');
+    const accessibility = await new AxeBuilder({ page })
+      .include('[data-mail-confirmation]')
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    assert.equal(accessibility.violations.length, 0);
     assert.equal(new URL(page.url()).hash, '');
     assert.equal((await admin.collection('users').getOne(record.id)).verified, false);
     await page.getByRole('button', { name: 'Confirm', exact: true }).click();
+    stage = 'browser completion';
     await page.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
     await mkdir('.runtime', { recursive: true });
     await page.screenshot({ path: '.runtime/mail-confirmation-verified.png' });
     await page.getByRole('combobox').selectOption('ar');
+    stage = 'browser Arabic';
     assert.equal(await page.locator('[data-mail-confirmation]').getAttribute('dir'), 'rtl');
     await page.screenshot({ path: '.runtime/mail-confirmation-ar.png' });
     await page.getByRole('combobox').selectOption('fr');
-    await page.getByRole('status').filter({ hasText: 'TerminÃ©.' }).waitFor();
+    stage = 'browser French';
+    await page
+      .getByRole('status')
+      .filter({ hasText: /Termin\u00e9\./u })
+      .waitFor();
     await page.screenshot({ path: '.runtime/mail-confirmation-fr.png' });
   } else
     assert.equal(
@@ -269,7 +292,14 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
     password,
     passwordConfirm: password,
   };
-  assert.equal((await action(resetInput)).status, 200);
+  if (browserPage) {
+    stage = 'browser password reset';
+    await browserPage.goto(reset.url);
+    await browserPage.getByLabel('New password', { exact: true }).fill(password);
+    await browserPage.getByLabel('Confirm new password', { exact: true }).fill(password);
+    await browserPage.getByRole('button', { name: 'Confirm', exact: true }).click();
+    await browserPage.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
+  } else assert.equal((await action(resetInput)).status, 200);
   assert.equal((await action(resetInput)).status, 400);
   await assert.rejects(() => existingSession.collection('users').authRefresh());
   const signedIn = new PocketBase(backendUrl);
@@ -282,11 +312,18 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   await signedIn.collection('users').requestEmailChange(newEmail);
   const change = await captured('email-change');
   assert.equal(change.action, 'email-change');
-  assert.equal(
-    (await action({ action: 'email-change', collection: 'users', token: change.token, password }))
-      .status,
-    200,
-  );
+  if (browserPage) {
+    stage = 'browser email change';
+    await browserPage.goto(change.url);
+    await browserPage.getByLabel('Current password', { exact: true }).fill(password);
+    await browserPage.getByRole('button', { name: 'Confirm', exact: true }).click();
+    await browserPage.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
+  } else
+    assert.equal(
+      (await action({ action: 'email-change', collection: 'users', token: change.token, password }))
+        .status,
+      200,
+    );
   assert.equal((await admin.collection('users').getOne(record.id)).email, newEmail);
   stage = 'cross-origin rejection';
   const rejected = await fetch(origin + '/api/v1/mail-actions', {
@@ -308,6 +345,7 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
       crossOriginRejected: true,
       externalMailSent: false,
       browser: process.env.MAIL_TEST_BROWSER === 'true',
+      wcagAA: process.env.MAIL_TEST_BROWSER === 'true',
     }) + '\n',
   );
   console.log(
@@ -317,7 +355,12 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   console.error('Disposable mail fixture failed', {
     stage,
     kind: error instanceof Error ? error.name : 'UnknownError',
+    browserActionStatus,
   });
+  if (browserPage) {
+    await mkdir('.runtime', { recursive: true });
+    await browserPage.screenshot({ path: '.runtime/mail-confirmation-failed.png' }).catch(() => {});
+  }
   process.exitCode = 1;
 } finally {
   if (browser) await browser.close();
