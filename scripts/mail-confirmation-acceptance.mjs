@@ -78,6 +78,7 @@ try {
   for (const [source, destination] of [
     ['pb_hooks', hooks],
     ['pb_migrations', migrations],
+    ['seed', path.join(folder, 'seed')],
   ]) {
     try {
       await cp(path.join(root, 'backend', source), destination, { recursive: true });
@@ -172,12 +173,14 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   });
   const email = 'listener@mail-actions.invalid';
   const originalPassword = randomBytes(18).toString('base64url');
-  const record = await admin.collection('users').create({
-    email,
-    verified: false,
-    password: originalPassword,
-    passwordConfirm: originalPassword,
-  });
+  const record = await admin
+    .collection('users')
+    .create({
+      email,
+      verified: false,
+      password: originalPassword,
+      passwordConfirm: originalPassword,
+    });
   const existingSession = new PocketBase(backendUrl);
   await existingSession.collection('users').authWithPassword(email, originalPassword);
   const beforeTemplates = await admin.collections.getOne(collection.id);
