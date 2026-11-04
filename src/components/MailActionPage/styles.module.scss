@@ -1,0 +1,64 @@
+.panel {
+  max-inline-size: 35rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  color: var(--ink, var(--color-text));
+  background: var(--surface, var(--color-surface));
+  border: 0.0625rem solid var(--line, var(--color-border));
+  border-radius: 1rem;
+  h1 {
+    margin-block: 0 1rem;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  p {
+    line-height: 1.6;
+  }
+  form,
+  label {
+    display: grid;
+    gap: 0.75rem;
+  }
+  form {
+    gap: 1.5rem;
+    margin-block: 1.5rem;
+  }
+  input,
+  button,
+  select {
+    font: inherit;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+  }
+  input,
+  select {
+    inline-size: 100%;
+    color: inherit;
+    background: inherit;
+    border: 0.0625rem solid var(--control-border, var(--color-border));
+  }
+  button {
+    color: var(--accent-ink, var(--color-on-primary));
+    background: var(--accent, var(--color-primary));
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  button:disabled {
+    cursor: wait;
+  }
+  :is(input, button, a, select):focus-visible {
+    outline: 0.1875rem solid var(--ink, var(--color-primary));
+    outline-offset: 0.1875rem;
+  }
+  a {
+    color: inherit;
+    text-underline-offset: 0.2rem;
+  }
+}
+@media (max-width: 40rem) {
+  .panel {
+    margin: 2rem 1rem;
+    padding: 1.25rem;
+  }
+}
