@@ -11,21 +11,33 @@ export function useMailAction() {
   const [outcome, setOutcome] = useState<MailActionOutcome | null>(null);
   const hydrated = useRef(false);
   const inFlight = useRef(false);
+  const linkVersion = useRef(0);
   useEffect(() => {
-    if (hydrated.current) return;
-    hydrated.current = true;
-    // Fragments never reach HTTP logs. Remove credentials from browser history after hydration.
-    const current = parseMailLink(window.location.hash);
-    window.history.replaceState(window.history.state, '', window.location.pathname);
-    startTransition(() => {
-      setLink(current);
-      setReady(true);
-    });
+    const readLink = () => {
+      const current = parseMailLink(window.location.hash);
+      // Fragments never reach HTTP logs. Keep credentials out of browser history.
+      window.history.replaceState(window.history.state, '', window.location.pathname);
+      linkVersion.current += 1;
+      startTransition(() => {
+        setLink(current);
+        setReady(true);
+        setOutcome(null);
+        setPassword('');
+        setPasswordConfirm('');
+      });
+    };
+    if (!hydrated.current) {
+      hydrated.current = true;
+      readLink();
+    }
+    window.addEventListener('hashchange', readLink);
+    return () => window.removeEventListener('hashchange', readLink);
   }, []);
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!link || inFlight.current) return;
     inFlight.current = true;
+    const version = linkVersion.current;
     const input: MailAction =
       link.action === 'verification'
         ? { ...link, action: 'verification' }
@@ -36,6 +48,7 @@ export function useMailAction() {
     setOutcome(null);
     try {
       const result = await confirmMailAction(input);
+      if (version !== linkVersion.current) return;
       setOutcome(result);
       if (result.completed) {
         setLink(null);
