@@ -60,3 +60,4 @@ jobs:
             .runtime/mail-confirmation-result.json
           if-no-files-found: error
           retention-days: 3
+          include-hidden-files: true
