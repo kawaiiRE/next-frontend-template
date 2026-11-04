@@ -304,6 +304,7 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   if (browserPage) {
     stage = 'browser password reset';
     await browserPage.goto(reset.url);
+    await browserPage.getByRole('combobox').selectOption('en');
     await browserPage.getByLabel('New password', { exact: true }).fill(password);
     await browserPage.getByLabel('Confirm new password', { exact: true }).fill(password);
     await browserPage.getByRole('button', { name: 'Confirm', exact: true }).click();
@@ -324,6 +325,7 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   if (browserPage) {
     stage = 'browser email change';
     await browserPage.goto(change.url);
+    await browserPage.getByRole('combobox').selectOption('en');
     await browserPage.getByLabel('Current password', { exact: true }).fill(password);
     await browserPage.getByRole('button', { name: 'Confirm', exact: true }).click();
     await browserPage.getByRole('status').filter({ hasText: 'Completed.' }).waitFor();
