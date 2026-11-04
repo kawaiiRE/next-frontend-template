@@ -240,7 +240,8 @@ routerAdd('GET', '/api/mail-fixture/captured', (e) => {
   if (process.env.MAIL_TEST_BROWSER === 'true') {
     const { chromium } = await import('@playwright/test');
     browser = await chromium.launch({ headless: true });
-    const page = await browser.newPage();
+    const context = await browser.newContext();
+    const page = await context.newPage();
     browserPage = page;
     page.on('response', (response) => {
       if (new URL(response.url()).pathname === '/api/v1/mail-actions')
