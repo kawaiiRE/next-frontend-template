@@ -1,15 +1,93 @@
 :root {
-  --content-width: 76rem;
-  --sidebar-width: 15.5rem;
-  --topbar-height: 4.5rem;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 3rem;
-  --radius-sm: 0.625rem;
-  --radius-lg: 1.25rem;
-  --font-sans:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  // Layout
+  --content-max: 76rem;
+  --content-narrow: 40rem;
+  --sidebar-width: 16rem;
+  --sidebar-width-collapsed: 4.5rem;
+  --topbar-height: 4rem;
+  --marketing-header-height: 4.25rem;
+
+  // Spacing
+  --space-0-5: 0.125rem;
+  --space-1: 0.25rem;
+  --space-1-5: 0.375rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  // Radii
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 999rem;
+
+  // Typography
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: clamp(2.5rem, 6vw, 4.25rem);
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --font-fallback: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-latin), var(--font-arabic), var(--font-fallback);
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  // Control sizing (inputs stay >= 1rem so iOS never zooms on focus)
+  --control-height-sm: 2rem;
+  --control-height-md: 2.5rem;
+  --control-height-lg: 3rem;
+  --control-font-size: 1rem;
+
+  // Motion
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-press: 140ms;
+  --duration-tooltip: 140ms;
+  --duration-popover: 180ms;
+  --duration-popover-exit: 120ms;
+  --duration-modal: 220ms;
+  --duration-modal-exit: 160ms;
+  --duration-drawer: 280ms;
+  --duration-drawer-exit: 200ms;
+  --duration-color: 150ms;
+
+  // Stacking
+  --z-sticky: 20;
+  --z-sidebar: 30;
+  --z-topbar: 40;
+  --z-skip-link: 100;
+
+  // Safe areas (fallback 0 when viewport-fit=cover is unsupported)
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+:root:lang(ar) {
+  --font-sans: var(--font-arabic), var(--font-latin), var(--font-fallback);
+  --leading-normal: 1.75;
+  --leading-snug: 1.55;
+  --leading-tight: 1.35;
 }

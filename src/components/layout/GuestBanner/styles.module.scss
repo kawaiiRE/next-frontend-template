@@ -1,0 +1,53 @@
+@use 'mixins' as *;
+
+.banner {
+  border-block-end: 0.0625rem solid var(--color-warning-border);
+  background: var(--color-warning-soft);
+  color: var(--color-warning-text);
+}
+
+.banner__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) max(var(--space-4), var(--safe-right)) var(--space-2)
+    max(var(--space-4), var(--safe-left));
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-8);
+  }
+
+  @include breakpoint-down($bp-sm) {
+    flex-wrap: wrap;
+  }
+}
+
+.banner__icon {
+  flex: none;
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+}
+
+.banner__text {
+  flex: 1;
+  min-inline-size: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+
+  @include breakpoint-down($bp-sm) {
+    flex-basis: calc(100% - 2rem);
+  }
+}
+
+.banner__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+
+  @include breakpoint-down($bp-sm) {
+    margin-inline-start: auto;
+  }
+}

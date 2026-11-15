@@ -1,0 +1,70 @@
+@use 'mixins' as *;
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.checkbox__box {
+  @include pressable(0.9);
+  @include focus-ring;
+
+  display: grid;
+  flex-shrink: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-block-start: 0.125rem;
+  border: 0.0625rem solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  padding: 0;
+  place-items: center;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-color) ease,
+    border-color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  &[data-checked] {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.checkbox__indicator {
+  display: grid;
+  place-items: center;
+  color: var(--color-on-primary);
+
+  svg {
+    inline-size: 0.875rem;
+    block-size: 0.875rem;
+    stroke-width: 3;
+  }
+
+  &[data-unchecked] {
+    display: none;
+  }
+}
+
+.checkbox__text {
+  min-inline-size: 0;
+}
+
+.checkbox__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.checkbox__description {
+  margin-block-start: var(--space-0-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

@@ -1,0 +1,135 @@
+@use 'mixins' as *;
+
+.button {
+  @include pressable;
+  @include focus-ring;
+
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+  border: 0.0625rem solid transparent;
+  border-radius: var(--radius-sm);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+
+  // Colour feedback stays even when motion is reduced.
+  transition:
+    background-color var(--duration-color) ease,
+    border-color var(--duration-color) ease,
+    color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  svg {
+    flex-shrink: 0;
+    inline-size: 1.05em;
+    block-size: 1.05em;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &[data-loading] {
+    cursor: progress;
+    opacity: 0.85;
+  }
+}
+
+.button__label {
+  overflow: hidden;
+  min-inline-size: 0;
+  text-overflow: ellipsis;
+}
+
+.button_sm {
+  min-block-size: var(--control-height-sm);
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.button_md {
+  min-block-size: var(--control-height-md);
+  padding-inline: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.button_lg {
+  min-block-size: var(--control-height-lg);
+  padding-inline: var(--space-6);
+  font-size: var(--text-base);
+}
+
+.button_fullWidth {
+  inline-size: 100%;
+}
+
+.button_primary {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  box-shadow: var(--shadow-xs);
+
+  @include hover {
+    background: var(--color-primary-hover);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--color-primary-active);
+  }
+}
+
+.button_secondary {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+
+  @include hover {
+    background: var(--color-surface-hover);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--color-surface-active);
+  }
+}
+
+.button_soft {
+  color: var(--color-primary-text);
+  background: var(--color-primary-soft);
+
+  @include hover {
+    background: var(--color-primary-soft-hover);
+  }
+}
+
+.button_ghost {
+  color: var(--color-text-muted);
+  background: transparent;
+
+  @include hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--color-surface-active);
+  }
+}
+
+.button_danger {
+  color: var(--color-on-danger);
+  background: var(--color-danger);
+  box-shadow: var(--shadow-xs);
+
+  @include hover {
+    background: var(--color-danger-hover);
+  }
+}

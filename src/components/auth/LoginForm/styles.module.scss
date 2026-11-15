@@ -1,0 +1,25 @@
+@use 'mixins' as *;
+
+.form__password {
+  position: relative;
+}
+
+.form__forgot {
+  @include focus-ring;
+
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  text-decoration: none;
+
+  @include hover {
+    text-decoration: underline;
+  }
+}
+
+.form__resend {
+  margin-block-start: var(--space-3);
+}

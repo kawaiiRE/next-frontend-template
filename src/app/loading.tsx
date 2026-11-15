@@ -1,5 +1,5 @@
-import { LoadingState } from '@/components/LoadingState';
+import { FullPageLoading } from '@/components/feedback/FullPageLoading';
 
 export default function Loading() {
-  return <LoadingState />;
+  return <FullPageLoading />;
 }

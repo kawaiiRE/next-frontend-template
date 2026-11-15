@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { request } from '../src/services/api';
+import { expectEmpty, request } from '../src/services/api';
 
 afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('request', () => {
+describe('browser request', () => {
   it('returns parsed data for a successful response', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ value: 7 })));
 
@@ -16,22 +16,54 @@ describe('request', () => {
     });
   });
 
-  it('allows only validated error fields through the browser boundary', async () => {
+  it('sends JSON bodies same-origin without caching', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(Response.json({ ok: true }, { status: 201 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await request('/api/v1/notes', (body) => body, { method: 'POST', body: { title: 'Hi' } });
+
+    const [url, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe('/api/v1/notes');
+    expect(init.method).toBe('POST');
+    expect(init.credentials).toBe('same-origin');
+    expect(init.cache).toBe('no-store');
+    expect(init.body).toBe(JSON.stringify({ title: 'Hi' }));
+    expect(new Headers(init.headers).get('content-type')).toBe('application/json');
+  });
+
+  it('treats 204 as success for empty-response endpoints', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(null, { status: 204 })));
+
+    await expect(request('/api/v1/auth/logout', expectEmpty, { method: 'POST' })).resolves.toEqual({
+      success: true,
+      data: undefined,
+      status: 204,
+    });
+  });
+
+  it('passes validated field errors through and drops unknown properties', async () => {
     vi.stubGlobal(
       'fetch',
-      vi
-        .fn()
-        .mockResolvedValue(
-          Response.json(
-            { code: 'INVALID_INPUT', message: 'Invalid input.', internal: 'do not expose' },
-            { status: 400 },
-          ),
+      vi.fn().mockResolvedValue(
+        Response.json(
+          {
+            code: 'INVALID_INPUT',
+            message: 'Invalid input.',
+            fields: { email: 'taken', name: 'something-unknown' },
+            internal: 'do not expose',
+          },
+          { status: 400 },
         ),
+      ),
     );
 
     await expect(request('/api/example', (body) => body)).resolves.toEqual({
       success: false,
-      error: { code: 'INVALID_INPUT', message: 'Invalid input.' },
+      error: {
+        code: 'INVALID_INPUT',
+        message: 'Invalid input.',
+        fields: { email: 'taken', name: 'invalid' },
+      },
       status: 400,
     });
   });

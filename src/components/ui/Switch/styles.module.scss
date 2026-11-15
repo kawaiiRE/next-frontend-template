@@ -1,0 +1,73 @@
+@use 'mixins' as *;
+
+.switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.switch__text {
+  min-inline-size: 0;
+}
+
+.switch__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+}
+
+.switch__description {
+  margin-block-start: var(--space-0-5);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.switch__track {
+  @include focus-ring;
+
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  inline-size: 2.5rem;
+  block-size: 1.5rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  padding: 0.1875rem;
+  background: var(--color-border-strong);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--duration-color) ease;
+
+  &[data-checked] {
+    background: var(--color-primary);
+  }
+
+  &[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.switch__thumb {
+  display: block;
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-popover) var(--ease-out);
+
+  &[data-checked] {
+    transform: translateX(1rem);
+
+    [dir='rtl'] & {
+      transform: translateX(-1rem);
+    }
+  }
+
+  @include reduced-motion {
+    transition: none;
+  }
+}

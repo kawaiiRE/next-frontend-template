@@ -1,0 +1,76 @@
+@use 'mixins' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  animation: auth-enter 300ms var(--ease-out) both;
+
+  @include reduced-motion {
+    animation-name: auth-fade;
+  }
+}
+
+.card__icon {
+  display: grid;
+  inline-size: 3rem;
+  block-size: 3rem;
+  margin-block-end: var(--space-5);
+  border-radius: var(--radius-md);
+  place-items: center;
+  color: var(--color-primary-text);
+  background: var(--color-primary-soft);
+
+  svg {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+}
+
+.card__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
+
+  :lang(ar) & {
+    letter-spacing: 0;
+  }
+}
+
+.card__subtitle {
+  margin-block-start: var(--space-2);
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.card__body {
+  margin-block-start: var(--space-8);
+}
+
+.card__footer {
+  margin-block-start: var(--space-8);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+
+  a {
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+
+    @include hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@keyframes auth-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes auth-fade {
+  from {
+    opacity: 0;
+  }
+}

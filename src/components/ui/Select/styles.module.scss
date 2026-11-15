@@ -1,0 +1,120 @@
+@use 'mixins' as *;
+
+.select {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  min-inline-size: 0;
+}
+
+.select__label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.select__labelHidden {
+  @include visually-hidden;
+}
+
+.select__trigger {
+  @include focus-ring;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  inline-size: 100%;
+  min-inline-size: 12rem;
+  min-block-size: var(--control-height-lg);
+  border: 0.0625rem solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding-inline: var(--space-3);
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  font-size: var(--control-font-size);
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: border-color var(--duration-color) ease;
+
+  @include hover {
+    border-color: var(--color-text-soft);
+  }
+
+  &[data-popup-open] {
+    border-color: var(--color-primary);
+  }
+}
+
+.select__value {
+  @include truncate;
+}
+
+.select__icon {
+  display: grid;
+  flex-shrink: 0;
+  color: var(--color-text-soft);
+
+  svg {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+}
+
+.select__positioner {
+  z-index: 50;
+  outline: 0;
+}
+
+.select__popup {
+  @include popover-motion;
+
+  min-inline-size: var(--anchor-width);
+  max-block-size: var(--available-height);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-popover);
+  outline: 0;
+}
+
+.select__list {
+  outline: 0;
+}
+
+.select__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: 2.5rem;
+  border-radius: var(--radius-xs);
+  padding-inline: var(--space-3);
+  font-size: var(--text-sm);
+  cursor: default;
+  outline: 0;
+  -webkit-user-select: none;
+  user-select: none;
+
+  &[data-highlighted] {
+    background: var(--color-surface-hover);
+  }
+
+  &[data-selected] {
+    font-weight: var(--weight-semibold);
+  }
+}
+
+.select__indicator {
+  display: grid;
+  color: var(--color-primary-text);
+
+  svg {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+}

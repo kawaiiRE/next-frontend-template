@@ -1,0 +1,53 @@
+@use 'mixins' as *;
+
+.spinner {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  color: currentColor;
+
+  svg {
+    inline-size: 100%;
+    block-size: 100%;
+    animation: spin 0.6s linear infinite;
+  }
+}
+
+.spinner_sm {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.spinner_md {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+.spinner_lg {
+  inline-size: 2rem;
+  block-size: 2rem;
+}
+
+.spinner__track {
+  stroke: currentColor;
+  stroke-width: 2.5;
+  opacity: 0.2;
+}
+
+.spinner__arc {
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@include reduced-motion {
+  .spinner svg {
+    animation-duration: 1.5s;
+  }
+}

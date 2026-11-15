@@ -1,8 +1,2 @@
-import { handleApi } from '@/server/api';
-import { getHealth } from '@/server/services/health';
-
-export const dynamic = 'force-dynamic';
-
-export async function GET() {
-  return handleApi(getHealth);
-}
+// Unversioned alias kept for existing deployment health checks. Prefer `/api/v1/health`.
+export { GET } from '@/app/api/v1/health/route';

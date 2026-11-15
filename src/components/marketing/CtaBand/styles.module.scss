@@ -1,0 +1,85 @@
+@use 'mixins' as *;
+
+.cta {
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-8) max(var(--space-4), var(--safe-right)) var(--space-24)
+    max(var(--space-4), var(--safe-left));
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-8);
+  }
+}
+
+.cta__panel {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  border-radius: var(--radius-xl);
+  padding: var(--space-16) var(--space-6);
+  color: var(--color-on-brand);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-gradient-start),
+    var(--color-brand-gradient-end)
+  );
+  text-align: center;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--color-on-brand-grid) 0.0625rem, transparent 0.0625rem),
+      linear-gradient(90deg, var(--color-on-brand-grid) 0.0625rem, transparent 0.0625rem);
+    background-size: 2.5rem 2.5rem;
+    content: '';
+    mask-image: radial-gradient(ellipse at center, currentColor, transparent 70%);
+  }
+
+  > * {
+    position: relative;
+  }
+}
+
+.cta__title {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.03em;
+
+  :lang(ar) & {
+    letter-spacing: 0;
+  }
+
+  @include breakpoint-down($bp-sm) {
+    font-size: var(--text-3xl);
+  }
+}
+
+.cta__description {
+  max-inline-size: 32rem;
+  margin-block-end: var(--space-2);
+  color: var(--color-on-brand-muted);
+  font-size: var(--text-lg);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.cta__actions > .cta__guest {
+  color: var(--color-on-brand);
+
+  @include hover {
+    background: var(--color-on-brand-grid);
+  }
+}
+
+.cta__arrow {
+  @include rtl-mirror;
+}

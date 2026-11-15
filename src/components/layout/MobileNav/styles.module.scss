@@ -1,0 +1,122 @@
+@use 'mixins' as *;
+
+.backdrop {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  min-block-size: 100dvh;
+  background: var(--color-overlay);
+  opacity: calc(1 - var(--drawer-swipe-progress, 0));
+  transition: opacity var(--duration-drawer) var(--ease-drawer);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  &[data-swiping] {
+    transition-duration: 0ms;
+  }
+
+  &[data-ending-style] {
+    transition-duration: var(--duration-drawer-exit);
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    position: absolute;
+  }
+}
+
+.viewport {
+  position: fixed;
+  z-index: 81;
+  inset: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.popup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  inline-size: min(18rem, calc(100vw - 3rem));
+  block-size: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border-inline-end: 0.0625rem solid var(--color-sidebar-border);
+  padding-block: var(--safe-top) var(--safe-bottom);
+  padding-inline-start: var(--safe-left);
+  background: var(--color-sidebar-bg);
+  box-shadow: var(--shadow-lg);
+  outline: 0;
+  transform: translateX(var(--drawer-swipe-movement-x, 0px));
+  transition: transform var(--duration-drawer) var(--ease-drawer);
+  will-change: transform;
+
+  &[data-swiping] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    transform: translateX(-100%);
+
+    [dir='rtl'] & {
+      transform: translateX(100%);
+    }
+  }
+
+  &[data-ending-style] {
+    transition-duration: var(--duration-drawer-exit);
+  }
+
+  @include reduced-motion {
+    transition-property: opacity;
+
+    &[data-starting-style],
+    &[data-ending-style] {
+      opacity: 0;
+      transform: none;
+
+      [dir='rtl'] & {
+        transform: none;
+      }
+    }
+  }
+}
+
+.title {
+  @include visually-hidden;
+}
+
+.close {
+  @include pressable(0.92);
+  @include focus-ring;
+
+  position: absolute;
+  z-index: 1;
+  inset-block-start: calc(var(--safe-top) + (var(--topbar-height) - 2.25rem) / 2);
+  inset-inline-end: var(--space-3);
+  display: grid;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  place-items: center;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  svg {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+  }
+
+  @include hover {
+    background: var(--color-surface-hover);
+  }
+}

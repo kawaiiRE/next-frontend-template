@@ -1,0 +1,58 @@
+@use 'mixins' as *;
+
+.shell {
+  --shell-sidebar: var(--sidebar-width);
+
+  min-block-size: 100dvh;
+  background: var(--color-bg);
+}
+
+.shell_collapsed {
+  --shell-sidebar: var(--sidebar-width-collapsed);
+}
+
+// Width changes are instant: collapsing is often keyboard-driven and animating width costs layout.
+.shell__sidebar {
+  position: fixed;
+  z-index: var(--z-sidebar);
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--shell-sidebar);
+  border-inline-end: 0.0625rem solid var(--color-sidebar-border);
+  padding-block: var(--safe-top) var(--safe-bottom);
+  padding-inline-start: var(--safe-left);
+  background: var(--color-sidebar-bg);
+
+  @include breakpoint-down($bp-lg) {
+    display: none;
+  }
+}
+
+.shell__body {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100dvh;
+  min-inline-size: 0;
+
+  @include breakpoint-up($bp-lg) {
+    margin-inline-start: var(--shell-sidebar);
+  }
+}
+
+.shell__main {
+  flex: 1;
+  min-inline-size: 0;
+  outline: 0;
+}
+
+.shell__content {
+  inline-size: 100%;
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-8) max(var(--space-4), var(--safe-right))
+    calc(var(--space-16) + var(--safe-bottom)) max(var(--space-4), var(--safe-left));
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-8);
+  }
+}

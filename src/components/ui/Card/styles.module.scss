@@ -1,0 +1,48 @@
+@use 'mixins' as *;
+
+.card {
+  @include surface-card;
+
+  min-inline-size: 0;
+}
+
+.card_padded {
+  padding: var(--space-6);
+
+  @include breakpoint-down($bp-sm) {
+    padding: var(--space-4);
+  }
+}
+
+.card_danger {
+  border-color: var(--color-danger-border);
+}
+
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-5);
+}
+
+.card__heading {
+  min-inline-size: 0;
+}
+
+.card__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.card__description {
+  margin-block-start: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.card__actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+}

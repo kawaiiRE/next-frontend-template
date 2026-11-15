@@ -1,0 +1,11 @@
+.detail__body {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.detail__empty {
+  color: var(--color-text-soft);
+  font-style: italic;
+}

@@ -22,10 +22,14 @@
     "check": "yarn format && yarn lint && yarn typecheck && yarn test:run && yarn build"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "lucide-react": "^1.59.0",
     "next": "16.3.5",
+    "next-intl": "^4.14.9",
     "pocketbase": "0.28.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "sonner": "^2.0.8",
     "zod": "^4.3.6"
   },
   "devDependencies": {

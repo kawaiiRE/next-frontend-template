@@ -1,0 +1,62 @@
+@use 'mixins' as *;
+
+.topbar {
+  position: sticky;
+  z-index: var(--z-topbar);
+  inset-block-start: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-block-size: calc(var(--topbar-height) + var(--safe-top));
+  border-block-end: 0.0625rem solid var(--color-border);
+  padding-block-start: var(--safe-top);
+  padding-inline: var(--space-4) max(var(--space-4), var(--safe-right));
+  background: var(--color-topbar);
+  backdrop-filter: saturate(1.6) blur(0.75rem);
+  -webkit-backdrop-filter: saturate(1.6) blur(0.75rem);
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-6);
+  }
+}
+
+.topbar__start {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.topbar__end {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+// Parent-qualified so these win over the IconButton module regardless of stylesheet order.
+.topbar__start > .topbar__menu {
+  @include breakpoint-up($bp-lg) {
+    display: none;
+  }
+}
+
+.topbar__start > .topbar__collapse {
+  @include breakpoint-down($bp-lg) {
+    display: none;
+  }
+}
+
+.topbar__panelIcon {
+  @include rtl-mirror;
+}
+
+.topbar__divider {
+  flex-shrink: 0;
+  inline-size: 0.0625rem;
+  block-size: 1.25rem;
+  margin-inline: var(--space-1);
+  background: var(--color-border);
+}

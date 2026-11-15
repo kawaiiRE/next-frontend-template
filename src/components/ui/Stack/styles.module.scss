@@ -1,0 +1,17 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.stack_sm {
+  gap: var(--space-3);
+}
+
+.stack_md {
+  gap: var(--space-6);
+}
+
+.stack_lg {
+  gap: var(--space-10);
+}

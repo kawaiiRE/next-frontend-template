@@ -1,0 +1,49 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  border: 0.0625rem dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12) var(--space-6);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.empty_compact {
+  border: 0;
+  padding: var(--space-8) var(--space-4);
+  background: transparent;
+}
+
+.empty__icon {
+  display: grid;
+  inline-size: 3rem;
+  block-size: 3rem;
+  margin-block-end: var(--space-2);
+  border-radius: var(--radius-md);
+  place-items: center;
+  color: var(--color-primary-text);
+  background: var(--color-primary-soft);
+
+  svg {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+}
+
+.empty__title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.empty__description {
+  max-inline-size: 28rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.empty__action {
+  margin-block-start: var(--space-3);
+}

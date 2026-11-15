@@ -36,7 +36,7 @@ docker compose up -d --no-deps "$SERVICE_NAME"
 attempt=1
 while [ "$attempt" -le 45 ]; do
   if docker compose exec -T "$SERVICE_NAME" node -e \
-    "fetch('http://127.0.0.1:3000/api/health').then(response=>{if(!response.ok)process.exit(1)}).catch(()=>process.exit(1))"; then
+    "fetch('http://127.0.0.1:3000/api/v1/health').then(response=>{if(!response.ok)process.exit(1)}).catch(()=>process.exit(1))"; then
     docker compose ps "$SERVICE_NAME"
     echo "Frontend is healthy."
     exit 0

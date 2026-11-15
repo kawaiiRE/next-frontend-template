@@ -1,0 +1,32 @@
+.globalError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  min-block-size: 100dvh;
+  padding: var(--space-6);
+  font-family: var(--font-fallback);
+  text-align: center;
+
+  h1,
+  h2 {
+    font-size: var(--text-2xl);
+  }
+
+  p {
+    max-inline-size: 30rem;
+    margin-block-start: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  button {
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-5);
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    font-weight: var(--weight-semibold);
+    cursor: pointer;
+  }
+}

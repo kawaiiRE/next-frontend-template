@@ -1,0 +1,112 @@
+@use 'mixins' as *;
+
+.auth {
+  display: grid;
+  min-block-size: 100dvh;
+  grid-template-columns: 1fr;
+
+  @include breakpoint-up($bp-lg) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.auth__formSide {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding: calc(var(--space-4) + var(--safe-top)) max(var(--space-4), var(--safe-right))
+    calc(var(--space-6) + var(--safe-bottom)) max(var(--space-4), var(--safe-left));
+  background: var(--color-surface);
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-10);
+  }
+}
+
+.auth__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.auth__controls {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.auth__main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--space-10);
+  outline: 0;
+}
+
+.auth__content {
+  inline-size: 100%;
+  max-inline-size: 24rem;
+}
+
+.auth__panel {
+  position: relative;
+  display: none;
+  overflow: hidden;
+  align-items: flex-end;
+  padding: var(--space-12);
+  color: var(--color-on-brand);
+  background:
+    radial-gradient(circle at 20% 15%, var(--color-hero-glow-secondary), transparent 50%),
+    linear-gradient(150deg, var(--color-brand-gradient-start), var(--color-brand-gradient-end));
+
+  @include breakpoint-up($bp-lg) {
+    display: flex;
+  }
+}
+
+.auth__panelGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--color-on-brand-grid) 0.0625rem, transparent 0.0625rem),
+    linear-gradient(90deg, var(--color-on-brand-grid) 0.0625rem, transparent 0.0625rem);
+  background-size: 2.5rem 2.5rem;
+  mask-image: radial-gradient(circle at 70% 30%, currentColor, transparent 70%);
+  opacity: 0.9;
+}
+
+.auth__quote {
+  position: relative;
+  max-inline-size: 30rem;
+  margin: 0;
+
+  blockquote {
+    margin: var(--space-4) 0 var(--space-6);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-snug);
+    text-wrap: pretty;
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-0-5);
+    font-size: var(--text-sm);
+
+    span {
+      color: var(--color-on-brand-muted);
+    }
+  }
+}
+
+.auth__quoteIcon {
+  inline-size: 2rem;
+  block-size: 2rem;
+  opacity: 0.7;
+
+  [dir='rtl'] & {
+    transform: scaleX(-1);
+  }
+}

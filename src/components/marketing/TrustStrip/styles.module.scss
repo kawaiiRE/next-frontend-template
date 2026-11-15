@@ -1,0 +1,33 @@
+@use 'mixins' as *;
+
+.trust {
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-8) max(var(--space-4), var(--safe-right)) var(--space-4)
+    max(var(--space-4), var(--safe-left));
+  text-align: center;
+}
+
+.trust__label {
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.trust__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-10);
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    letter-spacing: -0.01em;
+    opacity: 0.8;
+  }
+}

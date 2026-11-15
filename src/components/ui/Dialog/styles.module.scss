@@ -1,0 +1,141 @@
+@use 'mixins' as *;
+
+// Shared by Dialog and ConfirmDialog (imported there with `@use`).
+.backdrop {
+  position: fixed;
+  z-index: 70;
+  inset: 0;
+  min-block-size: 100dvh;
+  background: var(--color-overlay);
+  transition: opacity var(--duration-modal) var(--ease-out);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+  }
+
+  &[data-ending-style] {
+    transition-duration: var(--duration-modal-exit);
+  }
+
+  // iOS 26+: absolute backdrops cover the full visual viewport.
+  @supports (-webkit-touch-callout: none) {
+    position: absolute;
+  }
+}
+
+.viewport {
+  position: fixed;
+  z-index: 71;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: max(var(--space-4), var(--safe-top)) var(--space-4)
+    max(var(--space-4), var(--safe-bottom));
+  place-items: center;
+}
+
+.popup {
+  inline-size: min(100%, 30rem);
+  max-block-size: calc(100dvh - var(--space-8));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-lg);
+  outline: 0;
+  transform-origin: center;
+  transition:
+    opacity var(--duration-modal) var(--ease-out),
+    transform var(--duration-modal) var(--ease-out);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  &[data-ending-style] {
+    transition-duration: var(--duration-modal-exit);
+  }
+
+  @include reduced-motion {
+    &[data-starting-style],
+    &[data-ending-style] {
+      transform: none;
+    }
+  }
+}
+
+.popup__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.popup__title {
+  min-inline-size: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+
+.popup__close {
+  @include pressable(0.92);
+  @include focus-ring;
+
+  display: grid;
+  flex-shrink: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  margin-block-start: -0.25rem;
+  margin-inline-end: -0.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  place-items: center;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  svg {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+  }
+
+  @include hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.popup__description {
+  margin-block-start: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.popup__body {
+  margin-block-start: var(--space-5);
+}
+
+.popup__footer {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+
+  @include breakpoint-down($bp-sm) {
+    > * {
+      flex: 1 1 auto;
+    }
+  }
+}

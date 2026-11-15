@@ -22,17 +22,20 @@ This repository is one complete, independent frontend codebase. It may call a ba
 
 - Do not add Tailwind or CSS-in-JS. Use SCSS Modules and the centralized files in `src/styles/`.
 - Use `rem` sizing, logical properties, explicit class names, and centralized color tokens. Do not hardcode palette values in component styles.
-- Keep routes in `src/constants/routes.ts` and visible starter copy in `src/content/copy.ts`.
+- Keep page and API paths in `src/constants/routes.ts`. Every visible string (including metadata, validation messages, toasts and errors) lives in `src/messages/en.json` and `src/messages/ar.json` with identical keys; `tests/i18n.test.ts` enforces parity.
+- Support both directions: use logical properties, mirror directional icons with the `rtl-mirror` mixin, and format dates and numbers with next-intl.
 - Preserve semantic HTML, keyboard access, focus visibility, reduced-motion behavior, loading/error/empty states, and responsive layouts.
 
 ## Security and quality
 
 - Browser code calls same-origin Next.js endpoints. PocketBase URLs, administrative credentials, gateway keys, and auth tokens stay server-only.
 - Authentication uses request-scoped, Secure, HttpOnly, host-only cookies in production. Never store auth tokens in localStorage.
-- Mutations validate body size, content, authorization, and exact Origin in both Next.js and PocketBase.
+- Mutations validate body size, content, authorization, and exact Origin in both Next.js and PocketBase. Sensitive routes are rate limited per client IP.
+- The starter is not indexable by default (`noindex`, `robots.txt` disallow, empty sitemap). Only `NEXT_PUBLIC_INDEXABLE=true` at build time changes that.
 - Never commit `.env`, `.next`, logs, generated type output, credentials, or runtime data.
 - Update code, tests, contracts, and docs together. Before handoff run `corepack yarn check`.
-- Preserve the `/api/v1/health` compatibility handshake and run `corepack yarn integration:check` when both template services are available.
+- `/api/v1/**` is a versioned contract consumed by the web client and the Expo app (`docs/integration.md`). Only make additive or bug-fix changes in v1, keep the error shape `{ message, code, fields? }`, and run `corepack yarn integration:check` when both template services are available.
+- Guest sessions, registration and email verification follow `GET /api/v1/config`; the UI hides what the backend disables.
 
 ## Deployment contract
 

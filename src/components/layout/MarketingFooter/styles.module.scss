@@ -1,0 +1,84 @@
+@use 'mixins' as *;
+
+.footer {
+  border-block-start: 0.0625rem solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-12) max(var(--space-4), var(--safe-right)) var(--space-8)
+    max(var(--space-4), var(--safe-left));
+
+  @include breakpoint-up($bp-sm) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include breakpoint-up($bp-md) {
+    grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+    padding-inline: var(--space-8);
+  }
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  @media (min-width: $bp-sm) and (max-width: $bp-md) {
+    grid-column: 1 / -1;
+  }
+}
+
+.footer__tagline {
+  max-inline-size: 20rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.footer__heading {
+  margin-block-end: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.footer__column ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__column a {
+  @include focus-ring;
+
+  border-radius: var(--radius-xs);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: color var(--duration-color) ease;
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+.footer__bottom {
+  max-inline-size: var(--content-max);
+  margin-inline: auto;
+  border-block-start: 0.0625rem solid var(--color-border);
+  padding: var(--space-6) max(var(--space-4), var(--safe-right))
+    calc(var(--space-6) + var(--safe-bottom)) max(var(--space-4), var(--safe-left));
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+
+  @include breakpoint-up($bp-md) {
+    padding-inline: var(--space-8);
+  }
+}

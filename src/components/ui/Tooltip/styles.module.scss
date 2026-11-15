@@ -1,0 +1,25 @@
+@use 'mixins' as *;
+
+.positioner {
+  z-index: 60;
+}
+
+.popup {
+  @include popover-motion(var(--duration-tooltip), var(--duration-tooltip));
+
+  max-inline-size: 18rem;
+  border-radius: var(--radius-xs);
+  padding: var(--space-1-5) var(--space-2);
+  color: var(--color-tooltip-text);
+  background: var(--color-tooltip-bg);
+  box-shadow: var(--shadow-md);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  overflow-wrap: anywhere;
+
+  // Once one tooltip is open, neighbours open instantly.
+  &[data-instant] {
+    transition-duration: 0ms;
+  }
+}

@@ -1,0 +1,28 @@
+@use 'mixins' as *;
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-block-end: var(--space-5);
+}
+
+.toolbar__search {
+  flex: 1 1 18rem;
+  min-inline-size: 0;
+  max-inline-size: 28rem;
+
+  input[type='search']::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+}
+
+.toolbar__spinner {
+  display: grid;
+  inline-size: var(--control-height-md);
+  block-size: var(--control-height-md);
+  place-items: center;
+  color: var(--color-text-soft);
+}

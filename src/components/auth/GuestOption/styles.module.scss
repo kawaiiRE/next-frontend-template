@@ -1,0 +1,28 @@
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-start: var(--space-6);
+}
+
+.option__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-soft);
+  font-size: var(--text-sm);
+
+  &::before,
+  &::after {
+    flex: 1;
+    block-size: 0.0625rem;
+    background: var(--color-border);
+    content: '';
+  }
+}
+
+.option__hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}

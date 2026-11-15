@@ -1,0 +1,71 @@
+@use 'mixins' as *;
+
+.iconButton {
+  @include pressable(0.94);
+  @include focus-ring;
+
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  border: 0.0625rem solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0;
+  color: var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-color) ease,
+    color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  svg {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &[data-popup-open] {
+    color: var(--color-text);
+    background: var(--color-surface-active);
+  }
+}
+
+.iconButton_sm {
+  inline-size: var(--control-height-sm);
+  block-size: var(--control-height-sm);
+}
+
+.iconButton_md {
+  inline-size: var(--control-height-md);
+  block-size: var(--control-height-md);
+}
+
+.iconButton_ghost {
+  @include hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.iconButton_outline {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+
+  @include hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.iconButton_soft {
+  color: var(--color-primary-text);
+  background: var(--color-primary-soft);
+
+  @include hover {
+    background: var(--color-primary-soft-hover);
+  }
+}

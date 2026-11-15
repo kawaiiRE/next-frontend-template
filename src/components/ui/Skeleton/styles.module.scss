@@ -1,0 +1,47 @@
+@use 'mixins' as *;
+
+.skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  max-inline-size: 100%;
+  background: var(--color-skeleton);
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--color-skeleton-highlight), transparent);
+    content: '';
+    transform: translateX(-100%);
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  [dir='rtl'] &::after {
+    animation-direction: reverse;
+  }
+
+  @include reduced-motion {
+    &::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+}
+
+.skeleton_sm {
+  border-radius: var(--radius-xs);
+}
+
+.skeleton_md {
+  border-radius: var(--radius-md);
+}
+
+.skeleton_full {
+  border-radius: var(--radius-full);
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}

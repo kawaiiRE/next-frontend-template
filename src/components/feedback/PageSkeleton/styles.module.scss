@@ -1,0 +1,30 @@
+@use 'mixins' as *;
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.skeleton__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-end: var(--space-2);
+}
+
+.skeleton__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+
+  @include breakpoint-up($bp-sm) {
+    gap: var(--space-4);
+  }
+}
+
+.skeleton__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

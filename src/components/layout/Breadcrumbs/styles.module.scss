@@ -1,0 +1,57 @@
+@use 'mixins' as *;
+
+.breadcrumbs {
+  min-inline-size: 0;
+}
+
+.breadcrumbs__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-inline-size: 0;
+
+  @include breakpoint-down($bp-md) {
+    display: none;
+  }
+}
+
+.breadcrumbs__link {
+  @include truncate;
+  @include focus-ring;
+
+  border-radius: var(--radius-xs);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--duration-color) ease;
+
+  @include hover {
+    color: var(--color-text);
+  }
+}
+
+.breadcrumbs__separator {
+  @include rtl-mirror;
+
+  flex-shrink: 0;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  color: var(--color-text-soft);
+}
+
+.breadcrumbs__current {
+  @include truncate;
+
+  color: var(--color-text);
+  font-weight: var(--weight-semibold);
+}

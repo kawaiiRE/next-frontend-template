@@ -1,9 +1,12 @@
 # Security
 
-- Keep PocketBase and administrative credentials on the server. Browser code uses same-origin endpoints only.
-- Create a PocketBase client per request. Load auth from a Secure, HttpOnly, host-only, SameSite cookie and export any refreshed cookie deliberately.
-- Validate exact Origin, authorization, content type, byte limits, and Zod schemas on mutations. PocketBase must independently enforce collection rules or hook guards.
-- Return allowlisted models and stable safe error codes. Do not forward raw PocketBase errors or records.
-- Set a restrictive Content Security Policy for the real application's asset and integration needs before launch.
-- Keep dependencies small and pinned through `yarn.lock`. Review framework and SDK release notes during upgrades.
-- Never put secrets in `NEXT_PUBLIC_*`, source files, documentation, test fixtures, client bundles, or command output.
+- **Secrets stay server-side.** Only `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_INDEXABLE` reach the browser. PocketBase is reached over a private address; superuser credentials never enter this repository.
+- **Sessions.** The PocketBase token lives in an HttpOnly, `SameSite=Lax`, host-only cookie (`__Host-session` with `Secure` on HTTPS). Browser routes never return it; only the bearer routes for native apps return tokens. Tokens close to expiry are refreshed transparently and tokens PocketBase rejects are cleared. Changing the password revokes every session.
+- **CSRF.** Cookie-authenticated mutations and every cookie-setting route require an `Origin` equal to `APP_ORIGIN`, on top of `SameSite=Lax`. A bearer token always wins over a cookie, and the token-issuing guest upgrade accepts only a bearer token.
+- **Input and output.** Bodies must be JSON, at most 64 KiB, and pass Zod schemas. Every PocketBase response is validated, and presenters allowlist fields (note owners and token keys never leave the server). Record ids are checked before any call, and foreign records are reported as `NOT_FOUND`.
+- **Safe errors.** Responses carry `{ message, code, fields? }` with generic messages. Logs record only the error class, gateway code and upstream status — never messages, stacks, tokens or bodies.
+- **Abuse controls.** Sign-in, registration, guest creation and upgrades, refresh, password and verification routes are rate limited per client IP (`docs/integration.md`); PocketBase applies its own limits per forwarded IP. Password reset and verification requests never reveal whether an account exists. Guest accounts expire on the backend after `guestTtlHours`.
+- **Redirects.** `next` targets accept only same-site relative paths.
+- **Headers.** Pages get a nonce-based Content Security Policy (`strict-dynamic`, no inline scripts, `frame-ancestors 'none'`, `upgrade-insecure-requests` on HTTPS) from `src/proxy.ts`; API responses get `default-src 'none'`. All responses send `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options: DENY`, `Cross-Origin-Opener-Policy`, a restrictive `Permissions-Policy`, and HSTS in production. Email-link pages (`/reset-password`, `/verify-email`) set a `no-referrer` policy so tokens in their URLs do not leak.
+- **Indexing.** The starter is `noindex` with a disallow-all `robots.txt` and an empty sitemap unless built with `NEXT_PUBLIC_INDEXABLE=true`. Authenticated pages are always `noindex`.
+- **Dependencies.** Kept small and pinned through `yarn.lock`. Review framework and SDK release notes during upgrades.

@@ -1,0 +1,36 @@
+@use 'mixins' as *;
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+
+  @include breakpoint-up($bp-md) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: var(--space-8);
+  }
+}
+
+.section__text {
+  min-inline-size: 0;
+}
+
+.section__title,
+.section__titleDanger {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+}
+
+.section__titleDanger {
+  color: var(--color-danger-text);
+}
+
+.section__description {
+  margin-block-start: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.section__control {
+  min-inline-size: 0;
+}

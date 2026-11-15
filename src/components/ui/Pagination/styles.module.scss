@@ -1,0 +1,76 @@
+@use 'mixins' as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-block-start: var(--space-6);
+}
+
+.pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination__step,
+.pagination__page {
+  @include pressable(0.94);
+  @include focus-ring;
+
+  display: inline-grid;
+  min-inline-size: var(--control-height-md);
+  block-size: var(--control-height-md);
+  border: 0.0625rem solid transparent;
+  border-radius: var(--radius-sm);
+  padding-inline: var(--space-2);
+  place-items: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-color) ease,
+    color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  @include hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+  }
+}
+
+.pagination__current {
+  border-color: var(--color-primary-border);
+  color: var(--color-primary-text);
+  background: var(--color-primary-soft);
+}
+
+.pagination__disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.pagination__chevron {
+  @include rtl-mirror;
+
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.pagination__ellipsis {
+  min-inline-size: 1.5rem;
+  color: var(--color-text-soft);
+  text-align: center;
+}
+
+@include breakpoint-down($bp-sm) {
+  .pagination__list li:not(:has([aria-current])):not(:first-child):not(:last-child) {
+    display: none;
+  }
+}

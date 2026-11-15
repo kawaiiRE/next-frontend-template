@@ -1,0 +1,82 @@
+@use 'mixins' as *;
+
+.trigger {
+  @include pressable(0.97);
+  @include focus-ring;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+  max-inline-size: 14rem;
+  min-block-size: var(--control-height-md);
+  border: 0.0625rem solid transparent;
+  border-radius: var(--radius-full);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-1) var(--space-2);
+  color: var(--color-text);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-color) ease,
+    transform var(--duration-press) var(--ease-out);
+
+  @include hover {
+    background: var(--color-surface-hover);
+  }
+
+  &[data-popup-open] {
+    background: var(--color-surface-active);
+  }
+}
+
+.trigger__name {
+  @include truncate;
+
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+
+  @include breakpoint-down($bp-md) {
+    display: none;
+  }
+}
+
+.trigger__chevron {
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+  color: var(--color-text-soft);
+
+  @include breakpoint-down($bp-md) {
+    display: none;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-inline-size: 0;
+}
+
+.header__text {
+  min-inline-size: 0;
+}
+
+.header__name {
+  @include truncate;
+
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+
+.header__email {
+  @include truncate;
+
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.signOutIcon {
+  @include rtl-mirror;
+}

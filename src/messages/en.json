@@ -1,0 +1,459 @@
+{
+  "metadata": {
+    "siteName": "Northwind",
+    "siteDescription": "A production-ready Next.js and PocketBase starter with authentication, notes, theming and Arabic support.",
+    "titles": {
+      "home": "Ship your product faster",
+      "login": "Sign in",
+      "register": "Create account",
+      "forgotPassword": "Forgot password",
+      "resetPassword": "Reset password",
+      "verifyEmail": "Verify email",
+      "dashboard": "Dashboard",
+      "notes": "Notes",
+      "newNote": "New note",
+      "editNote": "Edit note",
+      "note": "Note",
+      "profile": "Profile",
+      "settings": "Settings",
+      "notFound": "Page not found"
+    }
+  },
+  "common": {
+    "appName": "Northwind",
+    "loading": "Loading…",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "close": "Close",
+    "optional": "Optional",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "openDashboard": "Open dashboard"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "openNavigation": "Open navigation",
+    "closeNavigation": "Close navigation",
+    "collapseSidebar": "Collapse sidebar",
+    "expandSidebar": "Expand sidebar",
+    "sidebarShortcut": "Ctrl or ⌘ + B",
+    "userMenu": "Account menu for {name}",
+    "breadcrumb": "Breadcrumb",
+    "mainNavigation": "Main navigation",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "pagination": "Pagination",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageNumber": "Page {page}",
+    "notifications": "Notifications",
+    "moreActions": "More actions for {title}",
+    "loadingContent": "Loading content"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "notes": "Notes",
+    "profile": "Profile",
+    "settings": "Settings",
+    "workspace": "Workspace",
+    "account": "Account",
+    "newNote": "New note"
+  },
+  "marketing": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "badge": "New · Arabic and dark mode built in",
+      "title": "The foundation your next product deserves.",
+      "description": "Authentication, a polished app shell, accessible components and a typed API gateway — production-ready on day one, so you can focus on what makes your product different.",
+      "primaryCta": "Start for free",
+      "secondaryCta": "See features",
+      "note": "No credit card required"
+    },
+    "preview": {
+      "label": "Product preview",
+      "greeting": "Good morning",
+      "statNotes": "Notes",
+      "statActive": "Active",
+      "statArchived": "Archived",
+      "recent": "Recent notes",
+      "noteOne": "Quarterly planning",
+      "noteTwo": "Launch checklist",
+      "noteThree": "Customer interviews"
+    },
+    "trust": "Built on tools teams already trust",
+    "features": {
+      "eyebrow": "Features",
+      "title": "Everything a real app needs, done properly.",
+      "description": "Skip weeks of plumbing. Every piece is accessible, typed, tested and ready to extend.",
+      "auth": {
+        "title": "Secure authentication",
+        "description": "Sign-in, registration, password reset and email verification with HttpOnly cookies and bearer tokens for mobile."
+      },
+      "shell": {
+        "title": "A polished app shell",
+        "description": "Collapsible sidebar, mobile drawer, user menu and breadcrumbs that feel native on every device."
+      },
+      "i18n": {
+        "title": "Arabic and RTL ready",
+        "description": "English and Arabic with mirrored layouts, native fonts and locale-aware dates and numbers."
+      },
+      "theme": {
+        "title": "Light, dark and system",
+        "description": "Theme preference is rendered on the server, so pages never flash the wrong colours."
+      },
+      "api": {
+        "title": "Typed API gateway",
+        "description": "A versioned contract validated with Zod at every boundary, shared by web and mobile clients."
+      },
+      "a11y": {
+        "title": "Accessible by default",
+        "description": "Keyboard support, focus management, reduced motion and screen reader labels throughout."
+      }
+    },
+    "pricing": {
+      "eyebrow": "Pricing",
+      "title": "Simple plans that grow with you.",
+      "description": "Placeholder pricing to show the layout. Replace it with your own plans.",
+      "perMonth": "/ month",
+      "popular": "Most popular",
+      "starter": {
+        "name": "Starter",
+        "price": "$0",
+        "description": "For individuals exploring an idea.",
+        "featureOne": "Unlimited notes",
+        "featureTwo": "Light and dark themes",
+        "featureThree": "Community support",
+        "cta": "Get started"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$12",
+        "description": "For professionals shipping every week.",
+        "featureOne": "Everything in Starter",
+        "featureTwo": "Priority email support",
+        "featureThree": "Advanced search",
+        "cta": "Start free trial"
+      },
+      "team": {
+        "name": "Team",
+        "price": "$29",
+        "description": "For teams that need more control.",
+        "featureOne": "Everything in Pro",
+        "featureTwo": "Shared workspaces",
+        "featureThree": "Audit history",
+        "cta": "Contact sales"
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered.",
+      "stack": {
+        "question": "What is this template built with?",
+        "answer": "Next.js 16 with the App Router, React 19, TypeScript, SCSS Modules and PocketBase as the backend, connected through a versioned HTTP contract."
+      },
+      "mobile": {
+        "question": "Can a mobile app use the same backend?",
+        "answer": "Yes. The same API gateway issues bearer tokens to native clients, while browsers use secure HttpOnly cookies."
+      },
+      "language": {
+        "question": "How do I switch the language?",
+        "answer": "Use the language switcher in the header or settings. The choice is stored in a cookie, and links such as /ar switch it directly."
+      },
+      "customize": {
+        "question": "How do I make it my own?",
+        "answer": "Update the colour tokens, messages and site configuration, then replace the notes example with your own features one slice at a time."
+      }
+    },
+    "cta": {
+      "title": "Ready to build something great?",
+      "description": "Create an account in seconds and see the full app in action.",
+      "button": "Create your account"
+    },
+    "footer": {
+      "tagline": "A production-ready starter for modern web apps.",
+      "product": "Product",
+      "resources": "Resources",
+      "company": "Company",
+      "documentation": "Documentation",
+      "changelog": "Changelog",
+      "status": "Status",
+      "about": "About",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "rights": "© {year} Northwind. All rights reserved."
+    }
+  },
+  "auth": {
+    "panel": {
+      "quote": "We replaced weeks of setup with an afternoon. Authentication, theming and Arabic support just worked.",
+      "author": "Layla Haddad",
+      "role": "Product lead, Example Co."
+    },
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "newPassword": "New password",
+      "currentPassword": "Current password",
+      "passwordHint": "At least 8 characters."
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to continue to your workspace.",
+      "forgot": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one",
+      "passwordChanged": "Your password was changed. Sign in with your new password.",
+      "accountDeleted": "Your account has been deleted.",
+      "sessionExpired": "Your session has ended. Sign in again to continue.",
+      "verificationSent": "Check your inbox and open the verification link, then sign in."
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "Start in less than a minute.",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "disabled": "Registration is currently closed. Contact your administrator for access."
+    },
+    "verificationRequired": {
+      "title": "Check your inbox",
+      "description": "We sent a verification link to {email}. Open it to activate your account, then sign in."
+    },
+    "forgot": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email and we'll send you a reset link.",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "sentTitle": "Check your email",
+      "sentDescription": "If an account exists for {email}, a reset link is on its way.",
+      "back": "Back to sign in"
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "subtitle": "Make it strong and unique to this account.",
+      "submit": "Update password",
+      "submitting": "Updating…",
+      "successTitle": "Password updated",
+      "successDescription": "You can now sign in with your new password.",
+      "missingToken": "This reset link is incomplete. Request a new one to continue.",
+      "requestNew": "Request a new link"
+    },
+    "verify": {
+      "title": "Verify your email",
+      "verifying": "Verifying your email address…",
+      "successTitle": "Email verified",
+      "successDescription": "Your email address is confirmed. You're all set.",
+      "failureTitle": "Link invalid or expired",
+      "failureDescription": "This verification link can't be used. Sign in to request a new one.",
+      "missingToken": "This verification link is incomplete.",
+      "continue": "Continue",
+      "resend": "Resend verification email",
+      "resent": "If {email} needs verification, a new link is on its way."
+    }
+  },
+  "validation": {
+    "required": "This field is required.",
+    "invalid": "This value is not valid.",
+    "invalid_email": "Enter a valid email address.",
+    "too_short": "This is too short.",
+    "too_long": "This is too long.",
+    "taken": "This is already in use.",
+    "invalid_token": "This link is invalid or has expired.",
+    "incorrect_password": "The current password is incorrect."
+  },
+  "errors": {
+    "INVALID_INPUT": "Please check the highlighted fields.",
+    "UNAUTHENTICATED": "Your session has ended. Please sign in again.",
+    "INVALID_CREDENTIALS": "The email or password is incorrect.",
+    "FORBIDDEN_ORIGIN": "This request was blocked for your security.",
+    "REGISTRATION_DISABLED": "Registration is currently closed.",
+    "GUEST_DISABLED": "Guest sessions are currently unavailable.",
+    "NOT_GUEST": "This account is already registered.",
+    "EMAIL_NOT_VERIFIED": "Verify your email address before signing in.",
+    "NOT_FOUND": "We couldn't find what you were looking for.",
+    "EMAIL_TAKEN": "An account with this email already exists.",
+    "BODY_TOO_LARGE": "That's too much content to save at once.",
+    "UNSUPPORTED_MEDIA_TYPE": "The request format is not supported.",
+    "RATE_LIMITED": "Too many attempts. Please wait a moment and try again.",
+    "INVALID_RESPONSE": "The server sent an unexpected response.",
+    "UPSTREAM_UNAVAILABLE": "The service is temporarily unavailable.",
+    "UNAVAILABLE": "The connection is unavailable. Check your network and try again.",
+    "fallback": "Something went wrong. Please try again."
+  },
+  "dashboard": {
+    "greeting": "Welcome back, {name}",
+    "subtitle": "Here's what's happening in your workspace.",
+    "stats": {
+      "total": "Total notes",
+      "active": "Active",
+      "archived": "Archived"
+    },
+    "recentTitle": "Recent notes",
+    "viewAll": "View all",
+    "emptyTitle": "No notes yet",
+    "emptyDescription": "Create your first note to see it here.",
+    "loadErrorTitle": "We couldn't load your dashboard",
+    "loadErrorDescription": "The backend may be unavailable. Try again in a moment.",
+    "guestGreeting": "Welcome to your guest workspace"
+  },
+  "notes": {
+    "title": "Notes",
+    "subtitle": "Capture ideas, plans and anything worth remembering.",
+    "new": "New note",
+    "searchLabel": "Search notes",
+    "searchPlaceholder": "Search by title or content",
+    "filterLabel": "Show",
+    "filterActive": "Active",
+    "filterArchived": "Archived",
+    "count": "{count, plural, =0 {No notes} one {# note} other {# notes}}",
+    "emptyTitle": "No notes yet",
+    "emptyDescription": "Notes you create will appear here.",
+    "archivedEmptyTitle": "Nothing archived",
+    "archivedEmptyDescription": "Archived notes are kept here, out of your way.",
+    "noResultsTitle": "No matching notes",
+    "noResultsDescription": "Nothing matches “{search}”. Try a different search.",
+    "clearSearch": "Clear search",
+    "loadErrorTitle": "We couldn't load your notes",
+    "loadErrorDescription": "The backend may be unavailable. Try again in a moment.",
+    "updated": "Updated {time}",
+    "archivedBadge": "Archived",
+    "untitled": "Untitled",
+    "noContent": "No content",
+    "actions": {
+      "edit": "Edit",
+      "archive": "Archive",
+      "unarchive": "Restore",
+      "delete": "Delete"
+    },
+    "form": {
+      "titleLabel": "Title",
+      "titlePlaceholder": "Give your note a title",
+      "bodyLabel": "Content",
+      "bodyPlaceholder": "Write something…",
+      "create": "Create note",
+      "creating": "Creating…",
+      "save": "Save note",
+      "saving": "Saving…",
+      "createTitle": "New note",
+      "createSubtitle": "Write it down before you forget.",
+      "editTitle": "Edit note",
+      "editSubtitle": "Changes are saved when you press save."
+    },
+    "detail": {
+      "back": "All notes",
+      "createdOn": "Created {date}",
+      "updatedOn": "Last updated {date}"
+    },
+    "delete": {
+      "title": "Delete this note?",
+      "description": "“{title}” will be permanently deleted. This can't be undone.",
+      "confirm": "Delete note"
+    },
+    "toasts": {
+      "created": "Note created",
+      "saved": "Note saved",
+      "archived": "Note archived",
+      "unarchived": "Note restored",
+      "deleted": "Note deleted"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Manage how you appear across the workspace.",
+    "detailsTitle": "Personal details",
+    "detailsDescription": "Your name is visible in the app shell and on your account.",
+    "emailHelp": "Your sign-in email can't be changed here.",
+    "verified": "Verified",
+    "unverified": "Not verified",
+    "memberSince": "Member since {date}",
+    "saved": "Profile updated"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Personalise the app and manage your account.",
+    "appearanceTitle": "Appearance",
+    "appearanceDescription": "Choose how the interface looks on this device.",
+    "languageTitle": "Language",
+    "languageDescription": "Used for the interface, dates and numbers.",
+    "passwordTitle": "Password",
+    "passwordDescription": "Changing your password signs you out on every device.",
+    "passwordSubmit": "Update password",
+    "passwordSubmitting": "Updating…",
+    "dangerTitle": "Delete account",
+    "dangerDescription": "Permanently delete your account and all of your notes. This can't be undone.",
+    "dangerButton": "Delete account",
+    "dangerDialogTitle": "Delete your account?",
+    "dangerDialogDescription": "All of your notes and account data will be permanently removed.",
+    "dangerConfirmLabel": "Type {email} to confirm",
+    "dangerConfirm": "Delete my account",
+    "dangerDeleting": "Deleting…"
+  },
+  "userMenu": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "signOut": "Sign out",
+    "signedOut": "You've been signed out"
+  },
+  "errorPage": {
+    "title": "Something went wrong",
+    "description": "Something unexpected happened, or the service is temporarily unavailable. Try again in a moment.",
+    "retry": "Try again",
+    "home": "Go home"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "home": "Go home",
+    "dashboard": "Go to dashboard"
+  },
+  "guest": {
+    "displayName": "Guest",
+    "badge": "Guest session",
+    "continue": "Continue as guest",
+    "continuing": "Starting guest session…",
+    "divider": "or",
+    "hint": "No sign-up needed. Guest data is deleted automatically.",
+    "bannerLabel": "Guest session",
+    "banner": "{hours, plural, one {Guest session — your data is deleted after # hour. Create an account to keep it.} other {Guest session — your data is deleted after # hours. Create an account to keep it.}}",
+    "bannerMinutes": "{minutes, plural, one {Guest session — your data is deleted after # minute. Create an account to keep it.} other {Guest session — your data is deleted after # minutes. Create an account to keep it.}}",
+    "createAccount": "Create account",
+    "dismiss": "Dismiss for this session",
+    "menuHint": "Temporary guest session",
+    "upgradeTitle": "Create your account",
+    "upgradeDescription": "Keep your notes by adding your name, email and a password. You stay signed in.",
+    "upgradeSubmit": "Create account",
+    "upgradeSubmitting": "Creating account…",
+    "upgraded": "Account created. Your notes are saved.",
+    "signOutTitle": "Sign out of this guest session?",
+    "signOutDescription": "Guest sessions can't be resumed after you sign out, and their notes are deleted automatically. Create an account first to keep them.",
+    "signingOut": "Signing out…",
+    "endTitle": "End guest session",
+    "endDescription": "Delete this guest session and all of its notes now.",
+    "endButton": "End guest session",
+    "endDialogTitle": "End this guest session?",
+    "endDialogDescription": "Your guest notes will be permanently deleted. This can't be undone.",
+    "endConfirm": "End session",
+    "ending": "Ending…",
+    "ended": "Guest session ended"
+  }
+}
