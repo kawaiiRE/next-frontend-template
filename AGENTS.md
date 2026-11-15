@@ -2,6 +2,34 @@
 
 This repository is one complete, independent frontend codebase. It may call a backend over HTTP, but it must never import files, dependencies, environment files, generated code, or runtime data from a sibling project.
 
+This is the Next.js + React web template for projects whose backend is [`pocketbase-backend-template`](https://github.com/kawaiiRE/pocketbase-backend-template). It does not target the Fastify + Better Auth stack; the main web template for that stack is the Nuxt template.
+
+## Starting a new project from this template
+
+1. Copy the folder into the new project's wrapper (normally `<project>/frontend`), delete the copied `.git`, `node_modules`, `.next` and `*.tsbuildinfo`, then `git init` and add the project's own GitHub origin.
+2. Rename `name` in `package.json`, the README title and links, `brandMark` in `src/config/site.ts`, and the app name and descriptions in `src/messages/en.json` and `src/messages/ar.json`.
+3. `corepack yarn install --immutable`, copy `.env.example` to `.env.local` (`POCKETBASE_URL`, `APP_ORIGIN`, `NEXT_PUBLIC_SITE_URL`), start the PocketBase backend, then `corepack yarn dev`.
+4. Replace the example `notes` feature with the product's features, keeping the contract, service, repository and presenter layers; update `docs/integration.md` with the backend.
+5. Run `corepack yarn check` and `corepack yarn integration:check`, then follow `docs/deployment.md`. Set `NEXT_PUBLIC_INDEXABLE=true` only for a public site that should be indexed.
+
+## Commands
+
+- `corepack yarn dev`: Next.js dev server.
+- `corepack yarn format`, `lint`, `typecheck`, `test:run`: Prettier, ESLint, `next typegen` + `tsc`, Vitest.
+- `corepack yarn check`: all of the above plus `next build`. Run it before handoff.
+- `corepack yarn integration:check`: verify the live gateway against a running backend (reads `.env.local`).
+
+## Structure
+
+- `src/app/`: route groups `(marketing)`, `(auth)`, `(app)` and the `api/v1` gateway. `src/AGENTS.md` describes every `src/` folder.
+- `tests/`: Vitest unit tests. `scripts/check-integration.ts`: live contract check. `docs/`: architecture, integration, security, testing, deployment.
+
+## Git and deployment rules
+
+- Never commit, push or deploy without the owner's explicit go-ahead for that step.
+- Commit messages and pull request descriptions never mention an AI: no `Co-Authored-By` trailer for an assistant, no "Generated with" line, no assistant names or noreply addresses.
+- Deploy only through GitHub: reviewed local commit, push to the project's GitHub origin, then `git pull --ff-only` on the server and build there (`docker.sh` refuses dirty checkouts). Never copy source to a server by SCP, rsync, archives or direct edits.
+
 ## Architecture
 
 - Use Next.js App Router, React functional components, strict TypeScript, native SCSS Modules, and Server Components by default.
